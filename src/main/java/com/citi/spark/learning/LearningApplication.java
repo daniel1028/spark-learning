@@ -1,8 +1,6 @@
 package com.citi.spark.learning;
 
-import com.citi.spark.learning.basics.SparkRddBasic;
-import com.citi.spark.learning.basics.SparkRddPracticals;
-import com.citi.spark.learning.basics.SparkSQLBasic;
+import com.citi.spark.learning.basics.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
@@ -27,6 +25,9 @@ public class LearningApplication {
         JavaSparkContext context = createJavaSparkContext();
         new SparkRddBasic().execute(context);
         new SparkRddPracticals().execute(context);
+        new ReducesOnRdd().execute(context);
+        new MappingOnRdd().execute(context);
+        new TuplesOnRdd().execute(context);
         //==============================================
         //  SparkSession sparkSession = createSparkSession();
         //new SparkSQLBasic().execute(sparkSession);
