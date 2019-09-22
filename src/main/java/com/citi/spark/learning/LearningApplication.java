@@ -1,6 +1,7 @@
 package com.citi.spark.learning;
 
 import com.citi.spark.learning.basics.SparkRddBasic;
+import com.citi.spark.learning.basics.SparkRddPracticals;
 import com.citi.spark.learning.basics.SparkSQLBasic;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -25,16 +26,17 @@ public class LearningApplication {
 
         JavaSparkContext context = createJavaSparkContext();
         new SparkRddBasic().execute(context);
+        new SparkRddPracticals().execute(context);
         //==============================================
-        SparkSession sparkSession = createSparkSession();
-        new SparkSQLBasic().execute(sparkSession);
+        //  SparkSession sparkSession = createSparkSession();
+        //new SparkSQLBasic().execute(sparkSession);
 
 
         context.close();
-        sparkSession.close();
+        // sparkSession.close();
     }
 
-    private static JavaSparkContext createJavaSparkContext(){
+    private static JavaSparkContext createJavaSparkContext() {
         SparkConf conf = new SparkConf()
                 .setAppName("Spark Learning")
                 .setMaster("local[*]");
@@ -42,10 +44,10 @@ public class LearningApplication {
         return context;
     }
 
-    private static SparkSession createSparkSession(){
+    private static SparkSession createSparkSession() {
         return SparkSession.builder().appName("SparkSQL")
                 .master("local[*]")
-                .config("spark.sql.warehouse.dir","file:///c:/tmp/")
+                .config("spark.sql.warehouse.dir", "file:///c:/tmp/")
                 .getOrCreate();
     }
 }
