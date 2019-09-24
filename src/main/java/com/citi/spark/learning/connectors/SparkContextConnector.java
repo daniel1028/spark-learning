@@ -1,4 +1,4 @@
-package com.citi.spark.learning.basics;
+package com.citi.spark.learning.connectors;
 
 import org.apache.spark.api.java.JavaSparkContext;
 

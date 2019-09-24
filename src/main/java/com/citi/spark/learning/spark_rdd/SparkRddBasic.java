@@ -1,15 +1,10 @@
-package com.citi.spark.learning.basics;
+package com.citi.spark.learning.spark_rdd;
 
-import com.citi.spark.learning.util.Util;
-import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
+import com.citi.spark.learning.connectors.SparkContextConnector;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.codehaus.janino.Java;
 import org.springframework.stereotype.Component;
-import scala.Tuple2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component

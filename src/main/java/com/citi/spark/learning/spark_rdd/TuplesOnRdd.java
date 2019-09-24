@@ -1,5 +1,6 @@
-package com.citi.spark.learning.basics;
+package com.citi.spark.learning.spark_rdd;
 
+import com.citi.spark.learning.connectors.SparkContextConnector;
 import com.citi.spark.learning.model.IntegersWithSqrt;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;

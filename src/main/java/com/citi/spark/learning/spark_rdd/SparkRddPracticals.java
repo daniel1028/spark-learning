@@ -1,5 +1,6 @@
-package com.citi.spark.learning.basics;
+package com.citi.spark.learning.spark_rdd;
 
+import com.citi.spark.learning.connectors.SparkContextConnector;
 import com.citi.spark.learning.util.Util;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;

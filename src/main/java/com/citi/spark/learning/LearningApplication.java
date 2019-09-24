@@ -1,6 +1,7 @@
 package com.citi.spark.learning;
 
-import com.citi.spark.learning.basics.*;
+import com.citi.spark.learning.spark_ml.GymCompetitors;
+import com.citi.spark.learning.spark_rdd.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
@@ -23,18 +24,19 @@ public class LearningApplication {
         Logger.getLogger("org.apache").setLevel(Level.WARN);
 
         JavaSparkContext context = createJavaSparkContext();
-        new SparkRddBasic().execute(context);
+      /*  new SparkRddBasic().execute(context);
         new SparkRddPracticals().execute(context);
         new ReducesOnRdd().execute(context);
         new MappingOnRdd().execute(context);
-        new TuplesOnRdd().execute(context);
-        //==============================================
-        //  SparkSession sparkSession = createSparkSession();
-        //new SparkSQLBasic().execute(sparkSession);
+        new TuplesOnRdd().execute(context);*/
 
+        //==============================================
+        SparkSession sparkSession = createSparkSession();
+        //new SparkSQLBasic().execute(sparkSession);
+        new GymCompetitors().execute(sparkSession);
 
         context.close();
-        // sparkSession.close();
+        sparkSession.close();
     }
 
     private static JavaSparkContext createJavaSparkContext() {
