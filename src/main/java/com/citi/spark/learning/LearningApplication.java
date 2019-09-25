@@ -35,6 +35,7 @@ public class LearningApplication {
         new GroupByKeys().execute(context);
         new FlatMaps().execute(context);
         new Filters().execute(context);
+        new Joins().execute(context);
         //==============================================
         SparkSession sparkSession = createSparkSession();
         new SparkSQLBasic().execute(sparkSession);
