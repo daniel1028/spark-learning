@@ -6,7 +6,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReducesOnRdd implements SparkContextConnector {
+public class Reduces implements SparkContextConnector {
     @Override
     public void execute(JavaSparkContext context) {
 

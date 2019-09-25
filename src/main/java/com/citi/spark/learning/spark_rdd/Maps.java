@@ -7,7 +7,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MappingOnRdd implements SparkContextConnector {
+public class Maps implements SparkContextConnector {
     @Override
     public void execute(JavaSparkContext context) {
         JavaRDD<Double> enrichedData = context.parallelize(getDoubleNumbers())

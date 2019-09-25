@@ -9,7 +9,7 @@ import scala.Tuple2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TuplesOnRdd implements SparkContextConnector {
+public class Tuples implements SparkContextConnector {
     @Override
     public void execute(JavaSparkContext context) {
 

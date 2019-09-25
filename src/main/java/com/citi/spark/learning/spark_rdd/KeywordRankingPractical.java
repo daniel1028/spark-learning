@@ -9,11 +9,11 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 
-public class SparkRddPracticals implements SparkContextConnector {
+public class KeywordRankingPractical implements SparkContextConnector {
     @Override
     public void execute(JavaSparkContext context) {
 
-        JavaRDD<String> intitialRdd = context.textFile("C:\\Users\\esscay\\IdeaProjects\\spark-learning\\src\\main\\resources\\inputs\\input.txt");
+        JavaRDD<String> intitialRdd = context.textFile("src\\main\\resources\\inputs\\input.txt");
 
         //Map the line which has only alphabets
         JavaRDD<String> lettersOnly = intitialRdd.map(sentences -> sentences.replaceAll("[^a-zA-z\\s]", "").toLowerCase());
@@ -37,7 +37,7 @@ public class SparkRddPracticals implements SparkContextConnector {
         sortedWords.take(100).forEach(System.out::println);
 
 
-        //all the above line can written in one line as below.
+        //all the above line can written in one line as below unsing fluent api.
         intitialRdd.map(sentences -> sentences.replaceAll("[^a-zA-z\\s]", "").toLowerCase())
                 .filter(sent -> sent.trim().length() > 0)
                 .flatMap(words -> Arrays.asList(words.split(" ")).iterator())
