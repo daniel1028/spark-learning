@@ -1,7 +1,6 @@
 package com.citi.spark.learning;
 
-import com.citi.spark.learning.spark_ml.GymCompetitors;
-import com.citi.spark.learning.spark_rdd.*;
+import com.citi.spark.learning.spark_sql.FiltersOnSql;
 import com.citi.spark.learning.spark_sql.SparkSQLBasic;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -25,7 +24,7 @@ public class LearningApplication {
         Logger.getLogger("org.apache").setLevel(Level.WARN);
 
         JavaSparkContext context = createJavaSparkContext();
-        new SparkRddBasic().execute(context);
+       /* new SparkRddBasic().execute(context);
         new KeywordRankingPractical().execute(context);
         new Reduces().execute(context);
         new Maps().execute(context);
@@ -35,12 +34,13 @@ public class LearningApplication {
         new GroupByKeys().execute(context);
         new FlatMaps().execute(context);
         new Filters().execute(context);
-        new Joins().execute(context);
+        new Joins().execute(context);*/
         //==============================================
         SparkSession sparkSession = createSparkSession();
-        new SparkSQLBasic().execute(sparkSession);
-        new GymCompetitors().execute(sparkSession);
-
+        //new SparkSQLBasic().execute(sparkSession);
+        new FiltersOnSql().execute(sparkSession);
+        /*  new GymCompetitors().execute(sparkSession);
+         */
         context.close();
         sparkSession.close();
     }

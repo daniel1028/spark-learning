@@ -41,6 +41,8 @@ public class Joins implements SparkContextConnector {
         // Full outer join
         JavaPairRDD<Integer, Tuple2<Optional<String>, Optional<Integer>>> fullOuterJoin = userRowsRdd.fullOuterJoin(userVisitsRdd);
 
+
+
         leftOuterJoin.take(10).forEach(System.out::println);
         rightOuterJoin.take(10).forEach(System.out::println);
         fullOuterJoin.take(10).forEach(System.out::println);
