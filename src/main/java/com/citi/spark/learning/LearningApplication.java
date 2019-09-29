@@ -41,8 +41,11 @@ public class LearningApplication {
 /*        new SparkSQLBasic().execute(sparkSession);
         new FiltersOnSql().execute(sparkSession);
         new InMemoryData().execute(sparkSession);
-        new GroupingAndAggregation().execute(sparkSession);*/
+        new GroupingAndAggregation().execute(sparkSession);
         new MultiGroupingAndOrdering().execute(sparkSession);
+        new PivotTable().execute(sparkSession);
+        new AggregationAdv().execute(sparkSession);*/
+        new Udfs().execute(sparkSession);
         //new GymCompetitors().execute(sparkSession);
         context.close();
         sparkSession.close();
