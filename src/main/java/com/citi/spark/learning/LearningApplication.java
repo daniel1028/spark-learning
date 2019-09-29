@@ -44,8 +44,9 @@ public class LearningApplication {
         new GroupingAndAggregation().execute(sparkSession);
         new MultiGroupingAndOrdering().execute(sparkSession);
         new PivotTable().execute(sparkSession);
-        new AggregationAdv().execute(sparkSession);*/
-        new Udfs().execute(sparkSession);
+        new AggregationAdv().execute(sparkSession);
+        new Udfs().execute(sparkSession);*/
+        new HashAggregation().execute(sparkSession);
         //new GymCompetitors().execute(sparkSession);
         context.close();
         sparkSession.close();

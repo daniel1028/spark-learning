@@ -32,7 +32,7 @@ public class MultiGroupingAndOrdering implements SparkSessionConnector {
 
         orderedLog.show(10);
 
-        Dataset<Row> orderedLog2 = sparkSessionConnector.sql("select level, date_format(datetime,'MMM') as month , count(1) as total from logging group by level order by cast(first(date_format(datetime,'M')) as int), level");
+        Dataset<Row> orderedLog2 = sparkSessionConnector.sql("select level, date_format(datetime,'MMM') as month , count(1) as total from logging group by level,month order by cast(first(date_format(datetime,'M')) as int), level");
 
         orderedLog2.show();
 
