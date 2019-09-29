@@ -25,7 +25,7 @@ public class LearningApplication {
         Logger.getLogger("org.apache").setLevel(Level.WARN);
 
         JavaSparkContext context = createJavaSparkContext();
-        new SparkRddBasic().execute(context);
+       /* new SparkRddBasic().execute(context);
         new KeywordRankingPractical().execute(context);
         new Reduces().execute(context);
         new Maps().execute(context);
@@ -35,15 +35,15 @@ public class LearningApplication {
         new GroupByKeys().execute(context);
         new FlatMaps().execute(context);
         new Filters().execute(context);
-        new Joins().execute(context);
+        new Joins().execute(context);*/
         //==============================================
         SparkSession sparkSession = createSparkSession();
-        new SparkSQLBasic().execute(sparkSession);
+/*        new SparkSQLBasic().execute(sparkSession);
         new FiltersOnSql().execute(sparkSession);
         new InMemoryData().execute(sparkSession);
-        new GroupingAndAggregation().execute(sparkSession);
+        new GroupingAndAggregation().execute(sparkSession);*/
         new MultiGroupingAndOrdering().execute(sparkSession);
-        new GymCompetitors().execute(sparkSession);
+        //new GymCompetitors().execute(sparkSession);
         context.close();
         sparkSession.close();
     }
