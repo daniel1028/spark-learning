@@ -2,6 +2,8 @@ package com.citi.spark.learning.spark_ml;
 
 import com.citi.spark.learning.connectors.SparkSessionConnector;
 import org.apache.spark.ml.feature.VectorAssembler;
+import org.apache.spark.ml.regression.LinearRegression;
+import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -23,6 +25,10 @@ public class GymCompetitors implements SparkSessionConnector {
         Dataset<Row> modelDetail = modelInput.select("NoOfReps", "features").withColumnRenamed("NoOfReps", "label");
         modelDetail.show(10);
 
+        LinearRegression linearRegression = new LinearRegression();
+       LinearRegressionModel model =  linearRegression.fit(modelDetail);
+       System.out.println("This model has intercepts : " + model.intercept() + " and coeeficinets : " + model.coefficients());
+       model.transform(modelDetail).show(10);
 
         csvData.show(10);
     }
