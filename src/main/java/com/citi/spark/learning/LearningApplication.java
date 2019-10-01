@@ -1,6 +1,7 @@
 package com.citi.spark.learning;
 
 import com.citi.spark.learning.spark_ml.GymCompetitors;
+import com.citi.spark.learning.spark_ml.HousePriceAnalysis;
 import com.citi.spark.learning.spark_rdd.*;
 import com.citi.spark.learning.spark_sql.*;
 import org.apache.log4j.Level;
@@ -45,9 +46,11 @@ public class LearningApplication {
         new MultiGroupingAndOrdering().execute(sparkSession);
         new PivotTable().execute(sparkSession);
         new AggregationAdv().execute(sparkSession);
-        new Udfs().execute(sparkSession);*/
+        new Udfs().execute(sparkSession);
         new HashAggregation().execute(sparkSession);
-        //new GymCompetitors().execute(sparkSession);
+        new GymCompetitors().execute(sparkSession);*/
+        new HousePriceAnalysis().execute(sparkSession);
+
         context.close();
         sparkSession.close();
     }
