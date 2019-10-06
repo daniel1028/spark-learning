@@ -52,9 +52,6 @@
     <orderEntry type="library" name="Maven: xmlenc:xmlenc:0.52" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
-    <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.6" level="project" />
-    <orderEntry type="library" name="Maven: commons-digester:commons-digester:1.8" level="project" />
-    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.7.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-auth:2.6.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.9" level="project" />
@@ -198,6 +195,32 @@
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.htrace:htrace-core4:4.1.0-incubating" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.leveldbjni:leveldbjni-all:1.8" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-core:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-core-spark-adapter-api:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.scalaz:scalaz-core_2.11:7.2.27" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-core-spark-adapter-2.2:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-persistence-mongo:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.salat:salat-core_2.11:1.11.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:casbah-core_2.11:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:casbah-commons_2.11:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.nscala-time:nscala-time_2.11:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.joda:joda-convert:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.8.2" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:casbah-query_2.11:3.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.json4s:json4s-native_2.11:3.2.9" level="project" />
+    <orderEntry type="library" name="Maven: org.json4s:json4s-core_2.11:3.2.9" level="project" />
+    <orderEntry type="library" name="Maven: org.json4s:json4s-ast_2.11:3.2.9" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-model:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.salat:salat-util_2.11:1.11.2" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.11.8" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.11.8" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-commons:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: za.co.absa.spline:spline-persistence-api:0.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4s:slf4s-api_2.11:1.7.25" level="project" />
+    <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.10" level="project" />
+    <orderEntry type="library" name="Maven: com.databricks:spark-xml_2.12:0.6.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.8" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.1.8.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.1.8.RELEASE" level="project" />
