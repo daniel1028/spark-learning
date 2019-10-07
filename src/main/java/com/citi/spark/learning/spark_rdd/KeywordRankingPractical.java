@@ -1,19 +1,25 @@
 package com.citi.spark.learning.spark_rdd;
 
-import com.citi.spark.learning.connectors.SparkContextConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import com.citi.spark.learning.util.Util;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import scala.Tuple2;
 
 import java.util.Arrays;
 
-public class KeywordRankingPractical implements SparkContextConnector {
-    @Override
-    public void execute(JavaSparkContext context) {
+@Service
+public class KeywordRankingPractical implements SparkJob {
+    @Autowired
+    private Connectors connectors;
 
-        JavaRDD<String> intitialRdd = context.textFile("src\\main\\resources\\inputs\\input.txt");
+    @Override
+    public void execute() {
+
+        JavaRDD<String> intitialRdd = connectors.getSparkContext().textFile("src\\main\\resources\\inputs\\input.txt");
 
         //Map the line which has only alphabets
         JavaRDD<String> lettersOnly = intitialRdd.map(sentences -> sentences.replaceAll("[^a-zA-z\\s]", "").toLowerCase());

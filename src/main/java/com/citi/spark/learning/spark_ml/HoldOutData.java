@@ -1,6 +1,7 @@
 package com.citi.spark.learning.spark_ml;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.ml.evaluation.RegressionEvaluator;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.ml.param.ParamMap;
@@ -11,13 +12,18 @@ import org.apache.spark.ml.tuning.TrainValidationSplit;
 import org.apache.spark.ml.tuning.TrainValidationSplitModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class HoldOutData implements SparkSessionConnector {
+@Service
+public class HoldOutData implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
+    public void execute() {
         {
-            Dataset<Row> csvData = sparkSessionConnector.read()
+            Dataset<Row> csvData = connectors.getSparkSession().read()
                     .option("header", true)
                     .option("inferSchema", true)
                     .csv("src/main/resources/inputs/kc_house_data.csv");
@@ -47,8 +53,8 @@ public class HoldOutData implements SparkSessionConnector {
             TrainValidationSplitModel trainValidationSplitModel = trainValidationSplit.fit(trainingAndTestData);
             LinearRegressionModel lrModel = (LinearRegressionModel) trainValidationSplitModel.bestModel();
 
-            System.out.print("Trainign Data - R2:"+ lrModel.summary().r2() + " and RMSE:" +lrModel.summary().rootMeanSquaredError() );
-            System.out.print("Trainign Data - R2:"+ lrModel.evaluate(houseHoldData).r2() + " and RMSE:" +lrModel.evaluate(houseHoldData).rootMeanSquaredError() );
+            System.out.print("Trainign Data - R2:" + lrModel.summary().r2() + " and RMSE:" + lrModel.summary().rootMeanSquaredError());
+            System.out.print("Trainign Data - R2:" + lrModel.evaluate(houseHoldData).r2() + " and RMSE:" + lrModel.evaluate(houseHoldData).rootMeanSquaredError());
 
             System.out.println("Coefficient : " + lrModel.coefficients() + "  intercept:" + lrModel.intercept());
             System.out.println("reg param : " + lrModel.regParam() + "  elastic net param:" + lrModel.elasticNetParam());

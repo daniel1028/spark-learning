@@ -1,17 +1,23 @@
 package com.citi.spark.learning.spark_rdd;
 
-import com.citi.spark.learning.connectors.SparkContextConnector;
-import org.apache.spark.api.java.JavaSparkContext;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-public class Filters implements SparkContextConnector {
+@Service
+public class Filters implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(JavaSparkContext context) {
-        context.textFile("src\\main\\resources\\inputs\\biglog.txt")
+    public void execute() {
+        connectors.getSparkContext().textFile("src\\main\\resources\\inputs\\biglog.txt")
                 .flatMap(text -> Arrays.asList(text.split(" ")).iterator())
                 .filter(word -> word.contains(","))
-                .map(word -> word.replace("," , " -> "))
+                .map(word -> word.replace(",", " -> "))
                 .take(10)
                 .forEach(System.out::println);
     }

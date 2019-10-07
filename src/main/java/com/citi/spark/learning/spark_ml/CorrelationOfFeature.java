@@ -1,18 +1,21 @@
 package com.citi.spark.learning.spark_ml;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
-import org.apache.spark.ml.feature.VectorAssembler;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import static org.apache.spark.sql.functions.*;
+@Service
+public class CorrelationOfFeature implements SparkJob {
+    @Autowired
+    private Connectors connectors;
 
-public class CorrelationOfFeature implements SparkSessionConnector {
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
-
-        Dataset<Row> csvData = sparkSessionConnector.read()
+    public void execute() {
+        Dataset<Row> csvData = connectors.getSparkSession().read()
                 .option("header", true)
                 .option("inferSchema", true)
                 .csv("src/main/resources/inputs/kc_house_data.csv");
@@ -20,7 +23,7 @@ public class CorrelationOfFeature implements SparkSessionConnector {
 
         csvData.describe().show(10);
 
-       csvData = csvData.drop("id","date","waterfront","view");
+        csvData = csvData.drop("id", "date", "waterfront", "view");
 
         for (String col : csvData.columns()) {
             System.out.println("The correlation between Price and " + col + csvData.stat().corr("price", col));

@@ -1,21 +1,27 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkContextConnector;
-import com.citi.spark.learning.connectors.SparkSessionConnector;
-import org.apache.spark.api.java.JavaSparkContext;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
-import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.*;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.Metadata;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryData implements SparkSessionConnector {
+@Service
+public class InMemoryData implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSession) {
+    public void execute() {
 
         List<Row> inMemory = new ArrayList<>();
         Row row1 = RowFactory.create("WARN", "12/09/2019");
@@ -33,7 +39,7 @@ public class InMemoryData implements SparkSessionConnector {
         };
 
         StructType schema = new StructType(fields);
-        Dataset<Row> tempLogging = sparkSession.createDataFrame(inMemory, schema);
+        Dataset<Row> tempLogging = connectors.getSparkSession().createDataFrame(inMemory, schema);
         tempLogging.show(10);
     }
 }

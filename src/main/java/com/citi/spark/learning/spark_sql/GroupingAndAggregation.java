@@ -1,21 +1,27 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
-import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.Metadata;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupingAndAggregation implements SparkSessionConnector {
+@Service
+public class GroupingAndAggregation implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
+    public void execute() {
 
         List<Row> inMemory = new ArrayList<>();
         inMemory.add(RowFactory.create("WARN", "12/09/2019"));
@@ -33,17 +39,17 @@ public class GroupingAndAggregation implements SparkSessionConnector {
         };
 
         StructType schema = new StructType(fields);
-        Dataset<Row> tempLogging = sparkSessionConnector.createDataFrame(inMemory, schema);
+        Dataset<Row> tempLogging = connectors.getSparkSession().createDataFrame(inMemory, schema);
         tempLogging.createOrReplaceTempView("logging");
 
-        Dataset<Row> logging = sparkSessionConnector.sql("select * from logging");
+        Dataset<Row> logging = connectors.getSparkSession().sql("select * from logging");
         logging.show(10);
 
-        Dataset<Row> logglevelCount = sparkSessionConnector.sql("select level, count(1) as occurrences from logging group by level");
+        Dataset<Row> logglevelCount = connectors.getSparkSession().sql("select level, count(1) as occurrences from logging group by level");
         logglevelCount.show(10);
 
         //This aggregation can crash your servers. so try avoid this aggregation for larger datasets.
-        Dataset<Row> dataTimes = sparkSessionConnector.sql("select level, collect_list(dateTime) as dateTimes from logging group by level");
+        Dataset<Row> dataTimes = connectors.getSparkSession().sql("select level, collect_list(dateTime) as dateTimes from logging group by level");
         dataTimes.show(10);
     }
 }

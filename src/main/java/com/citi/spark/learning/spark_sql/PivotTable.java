@@ -1,21 +1,26 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.date_format;
 
-public class PivotTable implements SparkSessionConnector {
+@Service
+public class PivotTable implements SparkJob {
+    @Autowired
+    private Connectors connectors;
 
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
-        Dataset<Row> logging = sparkSessionConnector.read().option("header", true).csv("src\\main\\resources\\inputs\\biglog.txt");
+    public void execute() {
+        Dataset<Row> logging = connectors.getSparkSession().read().option("header", true).csv("src\\main\\resources\\inputs\\biglog.txt");
 
         logging.select(col("level"), date_format(col("datetime"), "MMM").alias("Month")
                 , date_format(col("datetime"), "M").alias("monthNum").cast(DataTypes.IntegerType))

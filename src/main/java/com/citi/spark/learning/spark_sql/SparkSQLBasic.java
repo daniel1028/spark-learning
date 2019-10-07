@@ -1,18 +1,23 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class SparkSQLBasic implements SparkSessionConnector {
+@Service
+public class SparkSQLBasic implements SparkJob {
+    @Autowired
+    private Connectors connectors;
 
     @Override
-    public void execute(SparkSession sparkSession) {
-        sparkSession.read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv")
+    public void execute() {
+        connectors.getSparkSession().read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv")
                 .createOrReplaceTempView("students");
 
-        Dataset<Row> students = sparkSession.sql("select * from students");
+        Dataset<Row> students = connectors.getSparkSession().sql("select * from students");
 
         System.out.println("Rows Count : " + students.count());
         students.show(100);

@@ -1,16 +1,22 @@
 package com.citi.spark.learning.spark_rdd;
 
-import com.citi.spark.learning.connectors.SparkContextConnector;
-import org.apache.spark.api.java.JavaSparkContext;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reduces implements SparkContextConnector {
-    @Override
-    public void execute(JavaSparkContext context) {
+@Service
+public class Reduces implements SparkJob {
+    @Autowired
+    private Connectors connectors;
 
-        int reducedVal = context.parallelize(getNumbers())
+    @Override
+    public void execute() {
+
+        int reducedVal = connectors.getSparkContext().parallelize(getNumbers())
                 .reduce((v1, v2) -> (v1 = v2))//Use lambda Function2
                 ;
         System.out.println("Final Output : " + reducedVal);

@@ -2,6 +2,8 @@ package com.citi.spark.learning.spark_ml;
 
 import com.citi.spark.learning.config.Connectors;
 import com.citi.spark.learning.config.SparkJob;
+import org.apache.spark.ml.Pipeline;
+import org.apache.spark.ml.PipelineStage;
 import org.apache.spark.ml.evaluation.RegressionEvaluator;
 import org.apache.spark.ml.feature.OneHotEncoderEstimator;
 import org.apache.spark.ml.feature.StringIndexer;
@@ -18,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OneHotEncodingHousePriceAnalysis implements SparkJob {
+public class PipelineStages implements SparkJob {
     @Autowired
     private Connectors connectors;
 
@@ -30,29 +32,32 @@ public class OneHotEncodingHousePriceAnalysis implements SparkJob {
                 .csv("src/main/resources/inputs/kc_house_data.csv");
         csvData.printSchema();
 
+        Dataset<Row>[] dataSplits = csvData.randomSplit(new double[]{0.8, 0.2});
+        Dataset<Row> trainingAndTestData = dataSplits[0];
+        Dataset<Row> houseHoldData = dataSplits[1];
+
         StringIndexer gradeIndexer = new StringIndexer();
         gradeIndexer.setInputCol("grade");
         gradeIndexer.setOutputCol("gradeIndex");
-        csvData = gradeIndexer.fit(csvData).transform(csvData);
+        /*csvData = gradeIndexer.fit(csvData).transform(csvData);*/
 
         StringIndexer zipcodeIndex = new StringIndexer();
         zipcodeIndex.setInputCol("zipcode");
         zipcodeIndex.setOutputCol("zipcodeIndex");
-        csvData = zipcodeIndex.fit(csvData).transform(csvData);
+        /*csvData = zipcodeIndex.fit(csvData).transform(csvData);*/
 
         OneHotEncoderEstimator encode = new OneHotEncoderEstimator();
         encode.setInputCols(new String[]{"gradeIndex", "zipcodeIndex"});
         encode.setOutputCols(new String[]{"gradeVector", "zipcodeVector"});
-        csvData = encode.fit(csvData).transform(csvData);
+        /*csvData = encode.fit(csvData).transform(csvData);*/
 
         VectorAssembler vectorAssembler = new VectorAssembler()
                 .setInputCols(new String[]{"bedrooms", "bathrooms", "sqft_living", "gradeVector", "zipcodeVector"})
                 .setOutputCol("features");
         Dataset<Row> modelInputData = vectorAssembler.transform(csvData).select("price", "features")
                 .withColumnRenamed("price", "label");
-        Dataset<Row>[] dataSplits = modelInputData.randomSplit(new double[]{0.8, 0.2});
-        Dataset<Row> trainingAndTestData = dataSplits[0];
-        Dataset<Row> houseHoldData = dataSplits[1];
+
+
         LinearRegression linearRegression = new LinearRegression();
         ParamMap[] paramMaps = new ParamGridBuilder()
                 .addGrid(linearRegression.regParam(), new double[]{0.01, 0.1, 0.5})
@@ -65,9 +70,12 @@ public class OneHotEncodingHousePriceAnalysis implements SparkJob {
                 .setEstimatorParamMaps(paramMaps)
                 .setTrainRatio(0.8);
 
-        TrainValidationSplitModel trainValidationSplitModel = trainValidationSplit.fit(trainingAndTestData);
-        LinearRegressionModel lrModel = (LinearRegressionModel) trainValidationSplitModel.bestModel();
 
+        Pipeline pipeline = new Pipeline();
+        pipeline.setStages(new PipelineStage[]{gradeIndexer, zipcodeIndex, encode, vectorAssembler, trainValidationSplit});
+        org.apache.spark.ml.PipelineModel pipelineModel = pipeline.fit(trainingAndTestData);
+        TrainValidationSplitModel trainValidationSplitModel = (TrainValidationSplitModel) pipelineModel.stages()[5];
+        LinearRegressionModel lrModel = (LinearRegressionModel) trainValidationSplitModel.bestModel();
 
         System.out.print("Trainign Data - R2:" + lrModel.summary().r2() + " and RMSE:" + lrModel.summary().rootMeanSquaredError());
         System.out.print("Trainign Data - R2:" + lrModel.evaluate(houseHoldData).r2() + " and RMSE:" + lrModel.evaluate(houseHoldData).rootMeanSquaredError());

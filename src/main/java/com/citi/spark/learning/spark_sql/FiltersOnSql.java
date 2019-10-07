@@ -1,19 +1,24 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
-
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.api.java.function.FilterFunction;
 import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static org.apache.spark.sql.functions.col;
 
-public class FiltersOnSql implements SparkSessionConnector {
+@Service
+public class FiltersOnSql implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
-        Dataset<Row> students = sparkSessionConnector.read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv");
+    public void execute() {
+        Dataset<Row> students = connectors.getSparkSession().read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv");
 
         //Natural SQL way
         // Dataset<Row> modernArts = students.filter("subject = 'Modern Art'");

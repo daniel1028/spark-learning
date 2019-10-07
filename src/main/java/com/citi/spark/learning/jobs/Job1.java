@@ -1,4 +1,4 @@
-package com.citi.spark.learning.spark_sql;
+package com.citi.spark.learning.jobs;
 
 import com.citi.spark.learning.config.Connectors;
 import com.citi.spark.learning.config.SparkJob;
@@ -12,7 +12,8 @@ import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.date_format;
 
 @Service
-public class MultiGroupingAndOrdering implements SparkJob {
+public class Job1 implements SparkJob {
+
     @Autowired
     private Connectors connectors;
 

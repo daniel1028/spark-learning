@@ -1,17 +1,22 @@
 package com.citi.spark.learning.spark_sql;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import static org.apache.spark.sql.functions.*;
 
-public class AggregationAdv implements SparkSessionConnector {
+@Service
+public class AggregationAdv implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
-        Dataset<Row> students = sparkSessionConnector.read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv");
+    public void execute() {
+        Dataset<Row> students = connectors.getSparkSession().read().option("header", true).csv("src\\main\\resources\\inputs\\students.csv");
 
         students.groupBy("subject")
                 .agg(max(col("score")).alias("max_score"), //agg method will automatically casting the value to Integer.

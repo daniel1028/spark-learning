@@ -1,17 +1,24 @@
 package com.citi.spark.learning.spark_ml;
 
-import com.citi.spark.learning.connectors.SparkSessionConnector;
+import com.citi.spark.learning.config.Connectors;
+import com.citi.spark.learning.config.SparkJob;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 //Linear Regression
-public class GymCompetitors implements SparkSessionConnector {
+@Service
+public class GymCompetitors implements SparkJob {
+    @Autowired
+    private Connectors connectors;
+
     @Override
-    public void execute(SparkSession sparkSessionConnector) {
-        Dataset<Row> csvData = sparkSessionConnector.read()
+    public void execute() {
+        Dataset<Row> csvData = connectors.getSparkSession().read()
                 .option("header", true)
                 .option("inferSchema", true)
                 .csv("src\\main\\resources\\inputs\\GymCompetition.csv");
