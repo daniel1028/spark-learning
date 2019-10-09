@@ -23,31 +23,25 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.12</artifactId>
+            <artifactId>spark-core_2.11</artifactId>
             <version>2.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.12</artifactId>
+            <artifactId>spark-sql_2.11</artifactId>
             <version>2.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-mllib_2.12</artifactId>
+            <artifactId>spark-mllib_2.11</artifactId>
             <version>2.4.4</version>
         </dependency>
         <dependency>
@@ -59,17 +53,26 @@
             <groupId>za.co.absa.spline</groupId>
             <artifactId>spline-core</artifactId>
             <version>0.3.9</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>sample.ProjectD</groupId> <!-- Exclude Project-D from Project-B -->
-                    <artifactId>Project-D</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>za.co.absa.spline</groupId>
-            <artifactId>spline-core-spark-adapter-2.2</artifactId>
+            <artifactId>spline-core-spark-adapter-2.4</artifactId>
             <version>0.3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>za.co.absa.spline</groupId>
+            <artifactId>spline-core-spark-adapter-api</artifactId>
+            <version>0.3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-core_2.11</artifactId>
+            <version>7.2.28</version>
+        </dependency>
+        <dependency>
+            <groupId>com.databricks</groupId>
+            <artifactId>spark-xml_2.11</artifactId>
+            <version>0.6.0</version>
         </dependency>
         <dependency>
             <groupId>za.co.absa.spline</groupId>
@@ -87,13 +90,6 @@
             <artifactId>spline-persistence-api</artifactId>
             <version>0.3.9</version>
         </dependency>
-        <dependency>
-            <groupId>com.databricks</groupId>
-            <artifactId>spark-xml_2.12</artifactId>
-            <version>0.6.0</version>
-        </dependency>
-
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
